@@ -1,6 +1,6 @@
 # Spring Boot REST App
 
-[![Build Status](https://travis-ci.org/gazbert/bxbot.svg?branch=master)](https://travis-ci.org/gazbert/spring-boot-rest-app)
+[![Build Status](https://travis-ci.org/gazbert/spring-boot-rest-app.svg?branch=master)](https://travis-ci.org/gazbert/spring-boot-rest-app)
 
 ## What is this?
 
