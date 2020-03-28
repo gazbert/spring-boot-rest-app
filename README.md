@@ -1,7 +1,7 @@
 # Spring Boot REST App
 
 [![Build Status](https://travis-ci.org/gazbert/spring-boot-rest-app.svg?branch=master)](https://travis-ci.org/gazbert/spring-boot-rest-app)
-[![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=spring-boot-rest-app&metric=alert_status)](https://sonarcloud.io/dashboard?id=gazbert_spring-boot-rest-app)
+[![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=gazbert_spring-boot-rest-app&metric=alert_status)](https://sonarcloud.io/dashboard?id=gazbert_spring-boot-rest-app)
 
 ## What is this?
 
