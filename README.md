@@ -155,3 +155,9 @@ current year and month. Only the last 90 archives are kept. Each archive is comp
 
 The logging level is set at `info`. You can change this default logging configuration in 
 the [`config/log4j2.xml`](./config/log4j2.xml) file.
+
+## Issue & Change Management
+Issues and new features are managed using the project 
+[Issue Tracker](https://github.com/gazbert/spring-boot-rest-app/issues) - submit bugs here.
+ 
+You are welcome to take on new features or fix bugs! See [here](CONTRIBUTING.md) for how to get involved. 
