@@ -11,12 +11,14 @@ It could be used as boilerplate for developing secure REST enabled microservices
 
 There are 2 REST endpoints:
 
-1. An Authentication endpoint for authenticating with credentials and obtaining a [JWT](https://jwt.io/).
-1. A business service endpoint that allows you to manage fake cryptocurrency Market data. This is
-secured and requires a valid JWT to be passed in the request Authorization header.
+1. `/api/token`' - An Authentication endpoint for authenticating with credentials and obtaining a
+   [JWT](https://jwt.io/).
+1. `/api/v1/config/markets` - A business service endpoint that allows you to manage fake 
+   cryptocurrency Market config. This is secured and requires a valid JWT to be passed in the request
+   Authorization header.
 
 The app has role based access control 
-([RBAC](https://en.wikipedia.org/wiki/Role-based_access_control)): Users can view config, 
+([RBAC](https://en.wikipedia.org/wiki/Role-based_access_control)): Users can view Market config, 
 but only administrators can update it.
 
 You can view the [Swagger](https://swagger.io/tools/swagger-ui/) docs at: 
@@ -125,7 +127,10 @@ JWT before it expires in order to get a new one. Alternatively, you can re-authe
 `/api/token` endpoint.
 
 ## TLS
-The REST API _must_ be configured to use TLS before accessing it over a public network.
+Out of the box, the app listens on port `8080` for plain HTTP connections.
+
+This is fine for playing with the app, but the REST API _must_ be configured to use TLS before 
+accessing it over a public network.
 
 The 'TLS Configuration' section in the [./config/application.properties](./config/application.properties) 
 file needs the following properties set:
