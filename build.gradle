@@ -1,0 +1,223 @@
+/*
+ * Gradle build for the app.
+ */
+
+buildscript {
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath("io.spring.gradle:dependency-management-plugin:1.0.9.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.13.RELEASE")
+        classpath "gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:2.0.0"
+    }
+}
+
+plugins {
+    id 'java'
+    id 'jacoco'
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext.versions = [
+        springBootVersion        : '2.1.13.RELEASE',
+        springCloudVersion       : '2.1.5.RELEASE',
+        springTxVersion          : '5.1.14.RELEASE',
+        springFoxVersion         : '2.9.2',
+        hibernateVaildatorVersion: '6.1.2.Final',
+        jaxbVersion              : '2.3.1',
+]
+
+/*
+ * Declare external dependencies here in 1 place so any (future) subprojects can use them.
+ */
+ext.libraries = [
+        spring_boot_starter                     : dependencies.create("org.springframework.boot:spring-boot-starter:" + ext.versions.springBootVersion) {
+            exclude module: "spring-boot-starter-logging"
+            force = true
+        },
+        spring_boot_starter_log4j2              : dependencies.create("org.springframework.boot:spring-boot-starter-log4j2:" + ext.versions.springBootVersion),
+        spring_boot_starter_web                 : dependencies.create("org.springframework.boot:spring-boot-starter-web:" + ext.versions.springBootVersion) {
+            exclude module: "spring-boot-starter-logging"
+            force = true
+        },
+        spring_boot_starter_data_jpa            : dependencies.create("org.springframework.boot:spring-boot-starter-data-jpa:" + ext.versions.springBootVersion) {
+            exclude module: "spring-boot-starter-logging"
+            force = true
+        },
+        spring_boot_starter_data_rest           : dependencies.create("org.springframework.boot:spring-boot-starter-data-rest:" + ext.versions.springBootVersion) {
+            exclude module: "spring-boot-starter-logging"
+            force = true
+        },
+        spring_boot_starter_security            : dependencies.create("org.springframework.boot:spring-boot-starter-security:" + ext.versions.springBootVersion) {
+            exclude module: "spring-boot-starter-logging"
+            force = true
+        },
+        spring_tx                               : dependencies.create("org.springframework:spring-tx:" + ext.versions.springTxVersion),
+        jjwt                                    : dependencies.create("io.jsonwebtoken:jjwt:0.9.1"),
+        google_guava                            : dependencies.create("com.google.guava:guava:28.2-jre"),
+        h2                                      : dependencies.create("com.h2database:h2:1.4.199"),
+        javax_xml_api                           : dependencies.create("javax.xml.bind:jaxb-api:" + ext.versions.jaxbVersion),
+        javax_xml_impl                          : dependencies.create("com.sun.xml.bind:jaxb-impl:" + ext.versions.jaxbVersion),
+
+        springfox_swagger2                      : dependencies.create("io.springfox:springfox-swagger2:" + ext.versions.springFoxVersion),
+        springfox_swagger_ui                    : dependencies.create("io.springfox:springfox-swagger-ui:" + ext.versions.springFoxVersion),
+        springfox_bean_validators               : dependencies.create("io.springfox:springfox-bean-validators:" + ext.versions.springFoxVersion),
+        swagger_annotations                     : dependencies.create("io.swagger:swagger-annotations:1.6.0"),
+
+        validation_api                          : dependencies.create("javax.validation:validation-api:2.0.0.Final"),
+        hibernate_validator                     : dependencies.create("org.hibernate.validator:hibernate-validator:" + ext.versions.hibernateVaildatorVersion),
+        hibernate_validator_annotation_processor: dependencies.create("org.hibernate.validator:hibernate-validator-annotation-processor:" + ext.versions.hibernateVaildatorVersion),
+
+        junit                                   : dependencies.create("junit:junit:4.13"),
+        powermock_junit                         : dependencies.create("org.powermock:powermock-module-junit4:2.0.6"),
+        powermock_api_easymock                  : dependencies.create("org.powermock:powermock-api-easymock:2.0.6"),
+        easymock                                : dependencies.create("org.easymock:easymock:4.2"),
+
+        spring_boot_starter_test                : dependencies.create("org.springframework.boot:spring-boot-starter-test:" + ext.versions.springBootVersion) {
+            exclude module: "spring-boot-starter-logging"
+            force = true
+        },
+        spring_security_test                    : dependencies.create("org.springframework.security:spring-security-test:5.2.2.RELEASE"),
+        awaitility                              : dependencies.create("org.awaitility:awaitility:4.0.2")
+]
+
+/*
+ * Dependencies required for this project.
+ */
+dependencies {
+    implementation libraries.spring_boot_starter_web
+    implementation libraries.spring_boot_starter_security
+    implementation libraries.spring_boot_starter
+    implementation libraries.spring_boot_starter_data_jpa
+    implementation libraries.spring_boot_starter_data_rest
+    implementation libraries.spring_boot_starter_log4j2
+    implementation libraries.jjwt
+    implementation libraries.google_guava
+    implementation libraries.h2
+    implementation libraries.springfox_swagger2
+    implementation libraries.springfox_swagger_ui
+    implementation libraries.springfox_bean_validators
+
+    testImplementation libraries.junit
+    testImplementation libraries.spring_boot_starter_test
+    testImplementation libraries.spring_security_test
+    testImplementation libraries.easymock
+    testImplementation libraries.powermock_junit
+    testImplementation libraries.powermock_api_easymock
+    testImplementation libraries.awaitility
+}
+
+/*
+ * Apply plugins to all projects. We only have 1 at the moment.
+ */
+allprojects {
+    apply plugin: "io.spring.dependency-management"
+    apply plugin: 'maven'
+    apply plugin: 'checkstyle'
+    apply plugin: "com.github.spotbugs"
+    apply plugin: "jacoco"
+    apply plugin: 'org.springframework.boot'
+
+    group = 'com.gazbert'
+    description = 'Spring Boot REST App'
+    version = '0.0.1-SNAPSHOT'
+    sourceCompatibility = '11'
+}
+
+/*
+ * Checkstyle config. Currently uses Google style guide.
+ */
+checkstyle {
+    toolVersion '8.21'
+    configFile = file("${rootDir}/etc/google_checks.xml")
+    ignoreFailures = false
+    showViolations = true
+    maxErrors = 0
+    maxWarnings = 0
+}
+checkstyleMain {
+    source = 'src/main/java'
+}
+checkstyleTest {
+    source = 'src/test/java'
+}
+
+/*
+ * Spotbugs config.
+ */
+spotbugs {
+    ignoreFailures = false
+    sourceSets = [sourceSets.main]
+    excludeFilter = file("${rootDir}/etc/spotbugs-exclude-filter.xml")
+    reportsDir = file("$project.buildDir/reports/spotbugs")
+    effort = "max"
+}
+tasks.withType(com.github.spotbugs.SpotBugsTask) {
+    reports {
+        xml.enabled false
+        html.enabled true
+    }
+}
+
+/*
+ * JaCoCo coverage config.
+ */
+jacoco {
+    toolVersion = "0.8.5"
+}
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        csv.enabled false
+        html.enabled true
+    }
+}
+test.finalizedBy jacocoTestReport
+check.dependsOn jacocoTestCoverageVerification
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            element = 'CLASS'
+            excludes = [
+                    'com.gazbert.restsample.Application', // pointless!
+                    'com.gazbert.restsample.services.MarketConfigServiceImpl', // ignore stubbed methods
+            ]
+            limit {
+                counter = 'LINE'
+                value = 'COVEREDRATIO'
+                minimum = 0.8
+            }
+        }
+    }
+}
+
+/*
+ * Log all unit test events.
+ */
+test {
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+/*
+ * Javadoc the lot for education purposes - normally only the public API classes be documented.
+ */
+javadoc {
+    include "**/restsample/**"
+}
+
+/*
+ * Must be set so Gradle boot plugin can build the fat boot jar
+ */
+bootJar {
+    mainClassName = 'com.gazbert.restsample.Application'
+}
+

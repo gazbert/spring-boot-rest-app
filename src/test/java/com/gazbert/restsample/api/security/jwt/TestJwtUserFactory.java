@@ -1,0 +1,94 @@
+package com.gazbert.restsample.api.security.jwt;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import com.gazbert.restsample.api.security.model.Role;
+import com.gazbert.restsample.api.security.model.RoleName;
+import com.gazbert.restsample.api.security.model.User;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import org.junit.Test;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
+/**
+ * Tests the behaviour of the JwtUserFactory is as expected.
+ *
+ * @author gazbert
+ */
+public class TestJwtUserFactory {
+
+  private static final Long ADMIN_ROLE_ID = Long.valueOf("213443242342");
+  private static final Long USER_ROLE_ID = Long.valueOf("21344565442342");
+
+  private static final Long USER_ID = Long.valueOf("2323267789789");
+  private static final String USERNAME = "hansolo";
+  private static final String PASSWORD = "password";
+  private static final String FIRSTNAME = "Han";
+  private static final String LASTNAME = "Solo";
+  private static final String EMAIL = "han@falcon";
+  private static final boolean USER_ENABLED = true;
+  private static final Date LAST_PASSWORD_RESET_DATE = new Date();
+
+  @Test
+  public void whenCreateCalledWithUserModelThenExpectJwtUserDetailsToBeReturned() {
+    final User user = new User();
+    user.setId(USER_ID);
+    user.setUsername(USERNAME);
+    user.setPassword(PASSWORD);
+    user.setFirstname(FIRSTNAME);
+    user.setLastname(LASTNAME);
+    user.setEmail(EMAIL);
+    user.setEnabled(USER_ENABLED);
+    user.setLastPasswordResetDate(LAST_PASSWORD_RESET_DATE);
+    user.setRoles(createRoles(user));
+
+    final JwtUser userDetails = JwtUserFactory.create(user);
+
+    assertEquals(USER_ID, userDetails.getId());
+    assertEquals(USERNAME, userDetails.getUsername());
+    assertEquals(PASSWORD, userDetails.getPassword());
+    assertEquals(FIRSTNAME, userDetails.getFirstname());
+    assertEquals(LASTNAME, userDetails.getLastname());
+    assertEquals(EMAIL, userDetails.getEmail());
+    assertEquals(USER_ENABLED, userDetails.isEnabled());
+    assertEquals(LAST_PASSWORD_RESET_DATE.getTime(), userDetails.getLastPasswordResetDate());
+
+    assertTrue(userDetails.getRoles().contains(RoleName.ROLE_ADMIN.name()));
+    assertTrue(userDetails.getRoles().contains(RoleName.ROLE_USER.name()));
+
+    assertTrue(
+        userDetails
+            .getAuthorities()
+            .contains(new SimpleGrantedAuthority(RoleName.ROLE_ADMIN.name())));
+    assertTrue(
+        userDetails
+            .getAuthorities()
+            .contains(new SimpleGrantedAuthority(RoleName.ROLE_USER.name())));
+  }
+
+  // ------------------------------------------------------------------------
+  // Private utils
+  // ------------------------------------------------------------------------
+
+  private List<Role> createRoles(User user) {
+    final List<User> users = Collections.singletonList(user);
+
+    final Role role1 = new Role();
+    role1.setId(ADMIN_ROLE_ID);
+    role1.setName(RoleName.ROLE_ADMIN);
+    role1.setUsers(users);
+
+    final Role role2 = new Role();
+    role2.setId(USER_ROLE_ID);
+    role2.setName(RoleName.ROLE_USER);
+    role2.setUsers(users);
+
+    final List<Role> roles = new ArrayList<>();
+    roles.add(role1);
+    roles.add(role2);
+    return roles;
+  }
+}
