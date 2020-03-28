@@ -11,7 +11,7 @@ It could be used as boilerplate for developing secure REST enabled microservices
 
 There are 2 REST endpoints:
 
-1. `/api/token`' - An Authentication endpoint for authenticating with credentials and obtaining a
+1. `/api/token` - An Authentication endpoint for authenticating with credentials and obtaining a
    [JWT](https://jwt.io/).
 1. `/api/v1/config/markets` - A business service endpoint that allows you to manage fake 
    cryptocurrency Market config. This is secured and requires a valid JWT to be passed in the request
@@ -21,7 +21,9 @@ The app has role based access control
 ([RBAC](https://en.wikipedia.org/wiki/Role-based_access_control)): Users can view Market config, 
 but only administrators can update it.
 
-You can view the [Swagger](https://swagger.io/tools/swagger-ui/) docs at: 
+The endpoints are accessed from the `http://localhost:8080` base URL.
+
+Take a look at the [Swagger](https://swagger.io/tools/swagger-ui/) docs at: 
 [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html) once you've configured
 and started the app.
 
