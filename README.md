@@ -29,16 +29,16 @@ Both [Gradle Wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.h
 [Maven Wrapper](https://github.com/takari/maven-wrapper) are included in the project.
    
 ### Gradle
-1. From the project root, run `./gradlew build`.
+1. From the project root, run `./gradlew build`
 1. To generate the Javadoc, run `./gradlew javadoc` and look in the `./build/docs/javadoc` folder.
 
 ### Maven
-1. From the project root, run `./mvnw clean install`.
+1. From the project root, run `./mvnw clean install`
 1. Take a look at the Javadoc in the `./target/apidocs` folders after the build completes.
 
 ### Checkstyle
 The app uses the [Google Style Guide](https://google.github.io/styleguide/javaguide.html)
-which is enforced during both the Maven and Gradle build - see the [build.gradle](./build.gradle) 
+which is enforced during both the Gradle and Maven build - see the [build.gradle](./build.gradle) 
 and [pom.xml](./pom.xml) files respectively. The Checkstyle report locations are:
 
 * Gradle - `./build/reports/checkstyle/main.html`
@@ -75,10 +75,14 @@ You _must_ change the `restapi.jwt.secret` value in the
 [./config/application.properties](./config/application.properties) before using the REST API over a public network.
 This is the key that is used to sign your web tokens - the JWTs are signed using the HS512 algorithm.
   
-Other interesting configuration in the [./config/application.properties](./config/application.properties) includes:
+Other interesting configuration includes:
 
 * `restapi.jwt.expiration` - the expires time of the JWT. Set to 10 mins. Be sure you know the
 risks if you decide to extend the expiry time.
+* `restapi.jwt.issuer` - the issuer of the JWT.
+* `restapi.jwt.audience` - the audience the JWT is meant for - your client.
+* `restapi.jwt.allowed_clock_skew` - to allow for time differences between the server and the client.
+* `server.port` - the port the app will listen on for incoming requests.
 
 ### Users
 You _must_ change the `PASSWORD` values in the 
@@ -87,7 +91,7 @@ before using the REST API over a public network - see instructions in the file o
 [bcrypt](https://en.wikipedia.org/wiki/Bcrypt) your passwords.
 
 2 users have been set up out of the box: `user` and `admin`. These users have `user` and `admin`
-roles respectively.
+roles respectively. Passwords are the same as the usernames - remember to change these :-)
 
 When the app starts up, Spring Boot will load the `import.sql` file and store the users and their 
 access rights in its [H2](https://www.h2database.com/html/main.html) in-memory database.
@@ -101,6 +105,9 @@ You can also run the app using Gradle or Maven:
 
 * Gradle - `./gradlew bootRun`
 * Maven - `./mvnw spring-boot:run`
+
+Check out the Swagger docs once the app is up and running:
+[http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
 
 ### Authentication
 The REST API endpoints require a valid JWT to be passed in the `Authorization` header of any requests.

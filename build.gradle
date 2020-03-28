@@ -1,7 +1,6 @@
 /*
  * Gradle build for the app.
  */
-
 buildscript {
 
     repositories {
