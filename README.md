@@ -1,5 +1,7 @@
 # Spring Boot REST App
 
+[![Build Status](https://travis-ci.org/gazbert/bxbot.svg?branch=master)](https://travis-ci.org/gazbert/spring-boot-rest-app)
+
 ## What is this?
 
 A simple [Spring Boot](http://projects.spring.io/spring-boot/) sample app that exposes a REST API.
