@@ -90,3 +90,6 @@ The following conventions should be followed:
   code.
 * We like static analysis: the build uses [JaCoCo](https://www.jacoco.org/jacoco/) to enforce code 
   coverage and [SpotBugs](https://spotbugs.github.io/) to weed out bugs.
+  [Sonorcloud](https://sonarcloud.io/project/configuration?id=gazbert_spring-boot-rest-app) is used
+  for analysing and maintaining the quality of our code. Please maintain this, or better still,
+  help improve it! 
