@@ -5,7 +5,7 @@
 
 ## What is this?
 
-A simple [Spring Boot](http://projects.spring.io/spring-boot/) sample app that exposes a REST API.
+A [Spring Boot](http://projects.spring.io/spring-boot/) sample app that exposes a REST API.
 
 It could be used as boilerplate for developing secure REST enabled microservices.
 
