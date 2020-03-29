@@ -108,6 +108,10 @@ access rights in its [H2](https://www.h2database.com/html/main.html) in-memory d
 ### Running the App
 From the project root folder: `./app.sh [start|stop|status]`
 
+The [app.sh](./app.sh) script is configured to work with Gradle builds by default - it looks for 
+the app jar in the `./build/libs` folder. For Maven builds, change the `lib_dir` variable to point
+to the `./target` folder.
+
 You can also run the app using Gradle or Maven:
 
 * Gradle - `./gradlew bootRun`
