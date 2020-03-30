@@ -35,3 +35,6 @@ hs_err_pid*
 
 # Ignore app PID file
 .spring-boot-rest-app.pid
+
+# Ignore personal keystore used for REST API TLS
+**/keystore*
