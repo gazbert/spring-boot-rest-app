@@ -28,8 +28,7 @@ ext.versions = [
         springCloudVersion       : '2.1.5.RELEASE',
         springTxVersion          : '5.1.14.RELEASE',
         springFoxVersion         : '2.9.2',
-        hibernateVaildatorVersion: '6.1.2.Final',
-        jaxbVersion              : '2.3.1',
+        hibernateVaildatorVersion: '6.1.2.Final'
 ]
 
 /*
@@ -61,8 +60,6 @@ ext.libraries = [
         jjwt                                    : dependencies.create("io.jsonwebtoken:jjwt:0.9.1"),
         google_guava                            : dependencies.create("com.google.guava:guava:28.2-jre"),
         h2                                      : dependencies.create("com.h2database:h2:1.4.199"),
-        javax_xml_api                           : dependencies.create("javax.xml.bind:jaxb-api:" + ext.versions.jaxbVersion),
-        javax_xml_impl                          : dependencies.create("com.sun.xml.bind:jaxb-impl:" + ext.versions.jaxbVersion),
 
         springfox_swagger2                      : dependencies.create("io.springfox:springfox-swagger2:" + ext.versions.springFoxVersion),
         springfox_swagger_ui                    : dependencies.create("io.springfox:springfox-swagger-ui:" + ext.versions.springFoxVersion),

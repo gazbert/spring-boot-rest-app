@@ -48,7 +48,6 @@
     <spring-tx.version>5.1.14.RELEASE</spring-tx.version>
     <powermock.version>2.0.6</powermock.version>
     <spring-boot-starter.version>2.1.13.RELEASE</spring-boot-starter.version>
-    <jaxb-api.version>2.3.1</jaxb-api.version>
     <checkstlye.version>3.1.1</checkstlye.version>
     <spotbugs.version>4.0.0</spotbugs.version>
     <springfox.version>2.9.2</springfox.version>
@@ -172,16 +171,6 @@
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
       <version>1.4.199</version>
-    </dependency>
-    <dependency>
-      <groupId>javax.xml.bind</groupId>
-      <artifactId>jaxb-api</artifactId>
-      <version>${jaxb-api.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.sun.xml.bind</groupId>
-      <artifactId>jaxb-impl</artifactId>
-      <version>${jaxb-api.version}</version>
     </dependency>
     <dependency>
       <groupId>io.springfox</groupId>
