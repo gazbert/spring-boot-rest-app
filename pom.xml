@@ -51,7 +51,7 @@
     <checkstlye.version>3.1.1</checkstlye.version>
     <spotbugs.version>4.0.0</spotbugs.version>
     <springfox.version>2.9.2</springfox.version>
-    <hibernate-vaildator.version>6.1.2.Final</hibernate-vaildator.version>
+    <hibernate-vaildator.version>6.1.5.Final</hibernate-vaildator.version>
     <sonar.coverage.jacoco.xmlReportPaths>target/jacoco-report/jacoco.xml
     </sonar.coverage.jacoco.xmlReportPaths>
   </properties>
